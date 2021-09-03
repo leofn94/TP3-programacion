@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Nuevo alumno</title>
+</head>
+<body>
+
+<h1>Datos del alumno</h1>
+<form id="f" action="verDatos.php" method="post">
+    <label for="nombre">Nombre:</label>
+    <input name="nombre" value="Fulano"><br>
+
+    <label for="apellido">Apellido:</label>
+    <input name="apellido" value="de Tal"><br>
+
+    <label for="dni">DNI:</label>
+    <input type="number" name="dni" value="30123456"><br>
+
+    <label for="tipo">Situación:</label>
+    <select name="tipo" onchange="cambioTipo(this.value)">
+        <option value="s">Seleccione</option>
+        <option value="libre">Libre</option>
+        <option value="presencial">Presencial</option>
+    </select>
+    <div id="segunTipo"></div>
+    <input name="submit" type="submit" value="Ver Datos" disabled>
+</form>
+<script>
+function cambioTipo(tipo) {
+    var f = document.getElementById("f");
+    var mostrar = document.getElementById("segunTipo");
+
+    while( mostrar.firstChild ) {
+        mostrar.removeChild(mostrar.firstChild);
+    }
+
+    if (tipo == "libre") {
+        var l = document.createElement("label");
+        l.setAttribute("for","notaFinal");
+        l.innerHTML = "Nota del examen final";
+        var e = document.createElement("input");
+        e.type = "number";
+        e.name = "notaFinal";
+        mostrar.appendChild(l);
+        mostrar.appendChild(e);
+        f.submit.disabled=false;
+    }
+    else if (tipo == "presencial") {
+        var lP = document.createElement("label");
+        lP.setAttribute("for","inasistencias");
+        lP.innerHTML = "Cantidad de inasistencias";
+        var eP = document.createElement("input");       
+        eP.type = "number";
+        eP.name = "inasistencias";
+        var br = document.createElement("br");
+        mostrar.appendChild(lP);
+        mostrar.appendChild(eP);
+        mostrar.appendChild(br);
+
+        var lDH = document.createElement("label");
+        lDH.setAttribute("for","diasHabiles");
+        lDH.innerHTML = "Días hábiles";
+        var eDH = document.createElement("input");       
+        eDH.type = "number";
+        eDH.value = "100";
+        eDH.name = "diasHabiles";
+        var br2 = document.createElement("br");
+        mostrar.appendChild(lDH);
+        mostrar.appendChild(eDH);
+        mostrar.appendChild(br2);
+
+        var l = document.createElement("label");
+        l.setAttribute("for","cantTP");
+        l.innerHTML = "Cantidad de trabajos prácticos";
+        var e = document.createElement("input");
+        e.type = "number";
+        e.name = "cantTP";
+        e.onchange = function() {
+            while ( d.firstChild ) {
+                d.removeChild( d.firstChild );
+            }
+            for (var j = 0;  j < e.value; j++) {
+                i = document.createElement("input");
+                i.type = "number";
+                i.name = "notas["+j+"]";
+                d.appendChild(i);
+            }
+        };
+        var d = document.createElement("div");
+        d.setAttribute("id","notas");
+        mostrar.appendChild(l);
+        mostrar.appendChild(e);
+        mostrar.appendChild(d);
+        f.submit.disabled=false;
+    }
+    else {
+        f.submit.disabled = true;
+    }        
+}
+</script>
+<br>
+<iframe width="20%" height="10%" src="video.txt">
+
+</body>
+</html>
